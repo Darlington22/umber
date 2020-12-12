@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../template.xhtml"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <ui:define name="title">
+        User Accounts
+    </ui:define>
+    <ui:define name="content">
+        <div class="col-md-5">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    </div>
+                    <h4 class="panel-title">User Account Form</h4>
+                </div>
+                <div class="panel-body">
+                    <h:form id="form">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="fullName">Full Name</label>
+                                <h:inputText styleClass="form-control" id="fullName" value="#{userAccountController.userAccount.fullName}" required="true" requiredMessage="Field cannot be empty" />
+                                <h:message errorStyle="color: red" for="fullName"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="emailAddress">Email Address</label>
+                                <h:inputText styleClass="form-control" id="emailAddress" value="#{userAccountController.userAccount.emailAddress}" required="true" requiredMessage="Field cannot be empty" />
+                                <h:message errorStyle="color: red" for="emailAddress"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="userAccountType">Account Type</label>
+                                <h:selectOneMenu id="userAccountType" styleClass="form-control" value="#{userAccountController.userAccount.userAccountType}">
+                                    <f:selectItem itemLabel="SELECT OPTION" itemDisabled="true" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Admin" itemValue="Admin"/>
+                                    <f:selectItem itemLabel="User" itemDisabled="User"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="telephone">Telephone</label>
+                                <h:inputText styleClass="form-control" id="telephone" value="#{userAccountController.userAccount.telephone}" />
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" jsf:action="#{userAccountController.saveMethod()}">Save</button>&nbsp;
+                            <button type="submit" class="btn btn-default" jsf:action="#{userAccountController.clearMethod()}">Clear</button>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+
+        <div class="col-md-7">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    </div>
+                    <h4 class="panel-title">User Accounts List</h4>
+                </div>
+                <div class="panel-body">
+                    <table id="data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email Address</th>
+                                <th>Account Type</th>
+                                <th>Account Status</th>
+                                <th>Telephone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <h:form>
+                            <tbody>
+                                <ui:repeat value="#{userAccountController.findAll()}" var="user">
+                                    <tr>
+                                        <td>#{user.fullName}</td>
+                                        <td>#{user.emailAddress}</td>
+                                        <td>#{user.userAccountType}</td>
+                                        <td>#{user.userAccountStatus}</td>
+                                        <td>#{user.telephone}</td>
+                                        <td>
+                                            <button type="submit" class=" btn btn-sm btn-info" jsf:action="#{userAccountController.editMethod(user)}"><span class="fa fa-pencil"></span></button>
+                                            <button type="submit" class=" btn btn-sm btn-danger" jsf:action="#{userAccountController.deleteMethod(user)}"><span class="fa fa-trash"></span></button>
+                                        </td>
+
+                                    </tr>
+                                </ui:repeat>
+                            </tbody> 
+                        </h:form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

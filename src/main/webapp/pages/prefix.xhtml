@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../template.xhtml"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <ui:define name="title">
+        Prefix
+    </ui:define>
+    <ui:define name="content">
+        <div class="col-md-5">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    </div>
+                    <h4 class="panel-title">Prefix Form</h4>
+                </div>
+                <div class="panel-body">
+                    <h:form id="form">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="rangeOfPlate">Prefix</label>
+                                <h:inputText styleClass="form-control" id="rangeOfPlate" value="#{prefixController.prefix.prefix}" />
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary" jsf:action="#{prefixController.saveMethod()}">Save</button>&nbsp;
+                            <button type="submit" class="btn btn-default" jsf:action="#{prefixController.clearMethod()}">Clear</button>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+
+        <div class="col-md-7">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    </div>
+                    <h4 class="panel-title">Prefix List</h4>
+                </div>
+                <div class="panel-body">
+                    <table id="data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Prefix</th>
+                                <th>Generated</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <h:form>
+                            <tbody>
+                                <ui:repeat value="#{prefixController.findAll()}" var="pref">
+                                    <tr>
+                                        <td>#{pref.prefix}</td>
+                                        <td>#{pref.generated}</td>
+                                        <td>
+                                            <button type="submit" class=" btn btn-sm btn-info" jsf:action="#{prefixController.editMethod(pref)}"><span class="fa fa-pencil"></span></button>
+                                            <button type="submit" class=" btn btn-sm btn-danger" jsf:action="#{prefixController.deleteMethod(pref)}"><span class="fa fa-trash"></span></button>
+                                        </td>
+
+                                    </tr>
+                                </ui:repeat>
+                            </tbody> 
+                        </h:form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
